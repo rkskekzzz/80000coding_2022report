@@ -1,0 +1,18 @@
+.slick-slider {
+  width: 100%;
+}
+
+.slick-slide {
+  padding: 5px;
+}
+.slick-dots {
+  position: relative !important;
+}
+
+.slick-dots .slick-active button::before {
+  color: red !important;
+}
+
+.slick-dots button::before {
+  color: white !important;
+}
