@@ -47,11 +47,7 @@ function App() {
           </Section>
         </ContentBox>
       }
-      footerBox={
-        <ContentBox>
-          <Section>hi</Section>
-        </ContentBox>
-      }
+      footerBox={<ContentBox>hi</ContentBox>}
     />
   );
 }
@@ -102,6 +98,7 @@ const ContentBox = ({ fg, bg, children }: ContentBoxProps) => {
         gap: '25px',
         bgcolor: bg,
         color: fg,
+        padding: '20px 16px',
       }}
     >
       {children}
@@ -127,6 +124,7 @@ const Box = ({ titleBox, contentBox, footerBox }: BoxProps) => {
         width: '100%',
         height: '100%',
         maxWidth: '600px !important',
+        padding: '0',
       }}
     >
       {titleBox}

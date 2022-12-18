@@ -16,7 +16,7 @@ const Bar = ({ height, width, direction }: BarProps) => {
   useEffect(() => {
     anime({
       targets: ref.current,
-      width: `${width}`,
+      width: window.innerWidth > 768 ? `calc(${width} * 1.5)` : `${width}`,
       height: `${height}`,
       duration: 2000,
       delay: anime.stagger(100, { start: 500 }),
@@ -83,8 +83,8 @@ const BarLabelStyles = styled.div<Pick<BarProps, 'direction'>>`
 
 const BarStyles = styled.div<Pick<BarProps, 'direction'>>`
   flex: 1 1 0;
-  width: 30%;
+  /* width: 200px; */
   height: 30%;
   background: white;
-  border-radius: ${(props) => (props.direction === 'column' ? '15px 15px 0 0' : '0  15px 15px 0')};
+  border-radius: ${(props) => (props.direction === 'column' ? '100px 100px 0 0' : '0  15px 15px 0')};
 `;
