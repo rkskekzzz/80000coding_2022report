@@ -5,88 +5,16 @@ import { Container } from '@mui/material';
 
 import { Weekday } from './data';
 
-interface TitleBoxProps {
-  fg: string;
-  bg: string;
-  children: React.ReactNode;
-}
-
-const TitleBox = ({ fg, bg, children }: TitleBoxProps) => {
-  return (
-    <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '30vh',
-      }}
-    >
-      {children}
-    </Container>
-  );
-};
-
-interface ContentBoxProps {
-  fg: string;
-  bg: string;
-  children: React.ReactNode;
-}
-
-const ContentBox = ({ fg, bg, children }: ContentBoxProps) => {
-  return (
-    <Container
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        gap: '25px',
-      }}
-    >
-      {children}
-    </Container>
-  );
-};
-
-interface BoxProps {
-  titleBox: React.ReactNode;
-  contentBox: React.ReactNode;
-}
-
-const Box = ({ titleBox, contentBox }: BoxProps) => {
-  return (
-    <Container
-      className='App'
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        maxWidth: '600px !important',
-      }}
-    >
-      {titleBox}
-      {contentBox}
-    </Container>
-  );
-};
-
 function App() {
   return (
     <Box
       titleBox={
-        <TitleBox fg='white' bg='blue'>
+        <TitleBox fg='white' bg='none'>
           Title Box
         </TitleBox>
       }
       contentBox={
-        <ContentBox fg='white' bg='blue'>
+        <ContentBox fg='white' bg='none'>
           <Section index={1}>
             <TabWidget
               items={[
@@ -121,3 +49,79 @@ function App() {
 }
 
 export default App;
+
+interface TitleBoxProps {
+  fg?: string;
+  bg?: string;
+  children?: React.ReactNode;
+}
+
+const TitleBox = ({ fg, bg, children }: TitleBoxProps) => {
+  return (
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '30vh',
+        bgcolor: bg,
+        color: fg,
+      }}
+    >
+      {children}
+    </Container>
+  );
+};
+
+interface ContentBoxProps {
+  fg?: string;
+  bg?: string;
+  children?: React.ReactNode;
+}
+
+const ContentBox = ({ fg, bg, children }: ContentBoxProps) => {
+  return (
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        gap: '25px',
+        bgcolor: bg,
+        color: fg,
+      }}
+    >
+      {children}
+    </Container>
+  );
+};
+
+interface BoxProps {
+  titleBox: React.ReactNode;
+  contentBox: React.ReactNode;
+}
+
+const Box = ({ titleBox, contentBox }: BoxProps) => {
+  return (
+    <Container
+      className='App'
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        maxWidth: '600px !important',
+      }}
+    >
+      {titleBox}
+      {contentBox}
+    </Container>
+  );
+};

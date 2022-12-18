@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import anime from 'animejs/lib/anime.es.js';
-import Grid from './Grid';
+import { Flex } from '../Layout';
 
-import { Weekday } from '../data';
-import Flex from './Flex';
+import { Weekday } from '../../data';
 
 interface BarProps {
   height: number;
 }
 
 const Bar = ({ height }: BarProps) => {
-  const ref = React.useRef(null);
+  const ref = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     anime({
       targets: ref.current,
       width: '100%',
@@ -31,7 +30,7 @@ interface BarGraphProps {
   maxBarHeight: number;
 }
 
-const BarGraph = ({ items, maxBarHeight }: BarGraphProps) => {
+const BarGraphWidget = ({ items, maxBarHeight }: BarGraphProps) => {
   return (
     <Container>
       <Flex direction='column' gap='10px'>
@@ -52,7 +51,7 @@ const BarGraph = ({ items, maxBarHeight }: BarGraphProps) => {
   );
 };
 
-export default BarGraph;
+export default BarGraphWidget;
 
 const Container = styled.div`
   width: 100%;

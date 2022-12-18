@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Flex from './Flex';
 
 type Color = {
   bg: string;
@@ -36,7 +35,6 @@ const Container = styled.div<{ bgColor?: string; fgColor?: string }>`
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
 
   padding: 10px;
-  /* margin: 1px 0 10px; */
 
   display: flex;
   flex-direction: column;

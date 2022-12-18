@@ -1,8 +1,4 @@
-import { TabWidget, SliderWidget } from './widget';
-import BarGraph from './BarGraph';
-import Section from './Section';
-import Flex from './Flex';
-import Card from './Card';
-import Grid from './Grid';
+import { TabWidget, SliderWidget, BarGraphWidget } from './widget';
+import { Section, Card, Flex, Grid } from './Layout';
 
-export { TabWidget, BarGraph, SliderWidget, Section, Card, Flex, Grid };
+export { TabWidget, BarGraphWidget as BarGraph, SliderWidget, Section, Card, Flex, Grid };
