@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 interface SectionProps {
-  index: number;
+  index?: number;
   children?: React.ReactNode;
 }
 const Section = ({ index, children }: SectionProps) => {

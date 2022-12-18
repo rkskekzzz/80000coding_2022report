@@ -10,7 +10,7 @@ function App() {
     <Box
       titleBox={
         <TitleBox fg='white' bg='none'>
-          Title Box
+          <div>asdfasdf asdf asdf</div>
         </TitleBox>
       }
       contentBox={
@@ -30,7 +30,10 @@ function App() {
             />
           </Section>
           <Section index={2}>
-            <BarGraph items={Weekday} maxBarHeight={500} />
+            <BarGraph items={Weekday} direction='bottom-to-top' maxBarHeight={500} />
+          </Section>
+          <Section index={2}>
+            <BarGraph items={Weekday} direction='left-to-right' maxBarHeight={500} />
           </Section>
           <Section index={3}>
             <SliderWidget>
@@ -42,6 +45,11 @@ function App() {
               </Card>
             </SliderWidget>
           </Section>
+        </ContentBox>
+      }
+      footerBox={
+        <ContentBox>
+          <Section>hi</Section>
         </ContentBox>
       }
     />
@@ -104,9 +112,10 @@ const ContentBox = ({ fg, bg, children }: ContentBoxProps) => {
 interface BoxProps {
   titleBox: React.ReactNode;
   contentBox: React.ReactNode;
+  footerBox: React.ReactNode;
 }
 
-const Box = ({ titleBox, contentBox }: BoxProps) => {
+const Box = ({ titleBox, contentBox, footerBox }: BoxProps) => {
   return (
     <Container
       className='App'
@@ -122,6 +131,7 @@ const Box = ({ titleBox, contentBox }: BoxProps) => {
     >
       {titleBox}
       {contentBox}
+      {footerBox}
     </Container>
   );
 };

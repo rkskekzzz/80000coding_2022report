@@ -6,44 +6,61 @@ import { Flex } from '../Layout';
 import { Weekday } from '../../data';
 
 interface BarProps {
-  height: number;
+  height?: string;
+  width?: string;
+  direction?: 'column' | 'row-reverse';
 }
 
-const Bar = ({ height }: BarProps) => {
+const Bar = ({ height, width, direction }: BarProps) => {
   const ref = useRef(null);
-
   useEffect(() => {
     anime({
       targets: ref.current,
-      width: '100%',
-      height: `${height}px`,
+      width: `${width}`,
+      height: `${height}`,
       duration: 2000,
       delay: anime.stagger(100, { start: 500 }),
     });
   }, []);
 
-  return <div ref={ref} className='bar'></div>;
+  return <BarStyles ref={ref} direction={direction} />;
 };
 
 interface BarGraphProps {
   items: { key: string; value: number }[];
+  direction?: 'bottom-to-top' | 'left-to-right';
   maxBarHeight: number;
 }
 
-const BarGraphWidget = ({ items, maxBarHeight }: BarGraphProps) => {
+const BarGraphWidget = ({ items, direction, maxBarHeight }: BarGraphProps) => {
+  const baseDirection = direction === 'bottom-to-top' ? 'column' : 'row-reverse';
+  const baseDivided = direction === 'bottom-to-top' ? 'row' : 'column';
+  const baseAlign = direction === 'bottom-to-top' ? 'end' : 'start';
+
   return (
     <Container>
-      <Flex direction='column' gap='10px'>
-        <Flex direction='row' gap='10px' justify='space-between' align='end' height='200px'>
-          {items.map((item, index) => (
-            <Bar key={index} height={(200 * item.value) / maxBarHeight} />
-          ))}
+      <Flex direction={baseDirection} gap='10px' justify='space-between'>
+        <Flex direction={baseDivided} gap='10px' justify='space-between' align={baseAlign} height='200px' flexGrow={1}>
+          {items.map((item, index) =>
+            baseDirection === 'column' ? (
+              <Bar key={index} direction={baseDirection} height={(200 * item.value) / maxBarHeight + 'px'} />
+            ) : (
+              <Bar key={index} direction={baseDirection} width={(200 * item.value) / maxBarHeight + 'px'} />
+            )
+          )}
         </Flex>
-        <Flex direction='row' gap='10px' justify='space-between'>
+        <Flex
+          direction={baseDivided}
+          gap='10px'
+          justify='space-between'
+          flexGrow={0}
+          width={baseDirection === 'column' ? '100%' : 'auto'}
+          height={baseDirection === 'column' ? 'auto' : '200px'}
+        >
           {items.map((item, index) => (
-            <div key={index} className='bar-label'>
+            <BarLabelStyles key={index} direction={baseDirection}>
               {item.key}
-            </div>
+            </BarLabelStyles>
           ))}
         </Flex>
       </Flex>
@@ -56,17 +73,18 @@ export default BarGraphWidget;
 const Container = styled.div`
   width: 100%;
   max-width: 600px;
+`;
 
-  .bar {
-    flex: 1 1 0;
-    width: 100%;
-    height: 100px;
-    background: white;
-    border-radius: 100px 100px 0 0;
-  }
-  .bar-label {
-    flex: 1 1 0;
-    width: 100%;
-    text-align: center;
-  }
+const BarLabelStyles = styled.div<Pick<BarProps, 'direction'>>`
+  height: ${(props) => (props.direction === 'column' ? '100%' : 'auto')};
+  width: ${(props) => (props.direction === 'column' ? '100%' : '100%')};
+  text-align: center;
+`;
+
+const BarStyles = styled.div<Pick<BarProps, 'direction'>>`
+  flex: 1 1 0;
+  width: 30%;
+  height: 30%;
+  background: white;
+  border-radius: ${(props) => (props.direction === 'column' ? '15px 15px 0 0' : '0  15px 15px 0')};
 `;
