@@ -35,15 +35,7 @@ function App() {
             >
               with 42SEOUL
             </Typography>
-            <Typography
-              className='grad'
-              display='inline'
-              align='center'
-              fontWeight={700}
-              fontSize='2rem'
-              color='#00dc64'
-              fontFamily='Single Day'
-            >
+            <Typography className='grad' display='inline' align='center' fontWeight={700} fontSize='2rem' color='#00dc64' fontFamily='Gugi'>
               팔만코딩경 리포트
             </Typography>
             <Typography display='inline' align='center' fontWeight={700} fontSize='0.9rem' color='#4f99d6' fontFamily='Nanum Gothic'>
@@ -54,7 +46,7 @@ function App() {
         contentBox={
           <ContentBox>
             <SliderWidget>
-              <Section title='올해 팔만코딩경에 등록된 게시글은?' subtitle='2022 팔만코딩경 리포트'>
+              <Section title='2022년 조회수가 가장 높은 요일은?' subtitle='2022 팔만코딩경 리포트'>
                 <BarGraphWidget items={Weekday} direction='bottom-to-top' maxBarHeight={500} selectedKey='월' />
                 <Typography display='inline' align='center' fontWeight={700} fontSize='1.1rem'>
                   우리는{' '}
