@@ -6,11 +6,11 @@
   padding: 5px;
 }
 .slick-dots {
-  position: relative !important;
+  bottom: -30px !important;
 }
 
 .slick-dots .slick-active button::before {
-  color: red !important;
+  color: #00dc64 !important;
 }
 
 .slick-dots button::before {

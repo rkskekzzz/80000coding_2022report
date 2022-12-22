@@ -5,6 +5,7 @@ type Direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type Divided = 'none' | 'two' | 'three';
 
 interface Props {
+  className?: string;
   children?: React.ReactNode;
   direction?: Direction;
   divided?: Divided;
@@ -21,6 +22,7 @@ interface Props {
 const Flex = ({ children, ...props }: Props) => {
   return (
     <Container
+      className={props.className}
       direction={props.direction}
       divided={props.divided}
       width={props.width}

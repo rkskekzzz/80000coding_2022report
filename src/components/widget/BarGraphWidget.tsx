@@ -2,67 +2,89 @@ import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import anime from 'animejs/lib/anime.es.js';
 import { Flex } from '../Layout';
-
-import { Weekday } from '../../data';
+import { useInView } from 'react-intersection-observer';
+import { useTheme } from '@mui/material';
 
 interface BarProps {
   height?: string;
   width?: string;
+  label?: string;
+  selected?: boolean;
   direction?: 'column' | 'row-reverse';
+  inView?: boolean;
 }
 
-const Bar = ({ height, width, direction }: BarProps) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    anime({
-      targets: ref.current,
-      width: window.innerWidth > 768 ? `calc(${width} * 1.5)` : `${width}`,
-      height: `${height}`,
-      duration: 2000,
-      delay: anime.stagger(100, { start: 500 }),
-    });
-  }, []);
+const Bar = ({ height, width, label, selected, direction, inView }: BarProps) => {
+  const barRef = useRef(null);
+  const animation = anime({
+    targets: barRef.current,
+    width: `${width}`,
+    height: `${height}`,
+    duration: 2000,
+    loop: false,
+    autoplay: false,
+  });
 
-  return <BarStyles ref={ref} direction={direction} />;
+  useEffect(() => {
+    if (inView) {
+      animation.play();
+    }
+  }, [inView]);
+
+  return <BarStyles ref={barRef} label={label} direction={direction} selected={selected} />;
 };
 
 interface BarGraphProps {
   items: { key: string; value: number }[];
+  sort?: 'asc' | 'desc' | 'none';
   direction?: 'bottom-to-top' | 'left-to-right';
+  selectedKey?: string;
   maxBarHeight: number;
 }
 
-const BarGraphWidget = ({ items, direction, maxBarHeight }: BarGraphProps) => {
+const BarGraphWidget = ({ items, sort, direction, maxBarHeight, selectedKey }: BarGraphProps) => {
+  const theme = useTheme();
+  const { ref, inView, entry } = useInView({
+    threshold: 1,
+  });
+  const copyItems = [...items];
   const baseDirection = direction === 'bottom-to-top' ? 'column' : 'row-reverse';
   const baseDivided = direction === 'bottom-to-top' ? 'row' : 'column';
   const baseAlign = direction === 'bottom-to-top' ? 'end' : 'start';
 
+  if (sort === 'asc') {
+    copyItems.sort((a, b) => a.value - b.value);
+  }
+  if (sort === 'desc') {
+    copyItems.sort((a, b) => b.value - a.value);
+  }
+
   return (
-    <Container>
-      <Flex direction={baseDirection} gap='10px' justify='space-between'>
-        <Flex direction={baseDivided} gap='10px' justify='space-between' align={baseAlign} height='200px' flexGrow={1}>
-          {items.map((item, index) =>
-            baseDirection === 'column' ? (
-              <Bar key={index} direction={baseDirection} height={(200 * item.value) / maxBarHeight + 'px'} />
-            ) : (
-              <Bar key={index} direction={baseDirection} width={(200 * item.value) / maxBarHeight + 'px'} />
-            )
-          )}
-        </Flex>
-        <Flex
-          direction={baseDivided}
-          gap='10px'
-          justify='space-between'
-          flexGrow={0}
-          width={baseDirection === 'column' ? '100%' : 'auto'}
-          height={baseDirection === 'column' ? 'auto' : '200px'}
-        >
-          {items.map((item, index) => (
-            <BarLabelStyles key={index} direction={baseDirection}>
-              {item.key}
-            </BarLabelStyles>
-          ))}
-        </Flex>
+    <Container ref={ref}>
+      <Flex direction={baseDivided} gap='10px' justify='space-between' align={baseAlign} height='200px' flexGrow={1}>
+        {copyItems.map((item, index) =>
+          // print item.key and selected key
+          baseDirection === 'column' ? (
+            <Bar
+              key={index}
+              label={item.key}
+              direction={baseDirection}
+              height={(200 * item.value) / maxBarHeight + 'px'}
+              selected={item.key === selectedKey}
+              inView={inView}
+            />
+          ) : (
+            <Bar
+              key={index}
+              label={item.key}
+              direction={baseDirection}
+              // 227: x = 500: item.value
+              width={(227 * item.value) / maxBarHeight + 'px'}
+              selected={item.key === selectedKey}
+              inView={inView}
+            />
+          )
+        )}
       </Flex>
     </Container>
   );
@@ -72,19 +94,32 @@ export default BarGraphWidget;
 
 const Container = styled.div`
   width: 100%;
-  max-width: 600px;
+
+  .bar-labels {
+    position: absolute;
+    bottom: 0;
+  }
 `;
 
-const BarLabelStyles = styled.div<Pick<BarProps, 'direction'>>`
-  height: ${(props) => (props.direction === 'column' ? '100%' : 'auto')};
-  width: ${(props) => (props.direction === 'column' ? '100%' : '100%')};
-  text-align: center;
-`;
-
-const BarStyles = styled.div<Pick<BarProps, 'direction'>>`
+const BarStyles = styled.div<Pick<BarProps, 'direction' | 'selected' | 'label'>>`
   flex: 1 1 0;
-  /* width: 200px; */
-  height: 30%;
-  background: white;
-  border-radius: ${(props) => (props.direction === 'column' ? '100px 100px 0 0' : '0  15px 15px 0')};
+  position: relative;
+  background: ${(props) =>
+    !!props.selected ? `linear-gradient(${props.direction === 'column' ? 'to bottom' : 'to left'},#00fe73,#008df4)` : '#c4c4c4'};
+
+  border-radius: 100px;
+
+  &::after {
+    width: 14px;
+    height: ${(props) => (props.direction === 'column' ? '14px' : '')};
+    font-size: 14px;
+    content: ${(props) => (props.label ? `'${props.label}'` : 'none')};
+    line-height: -14px;
+    color: #ffffff;
+    position: absolute;
+    bottom: ${(props) => (props.direction === 'column' ? '14px' : '0px')};
+    left: ${(props) => (props.direction === 'column' ? '0px' : '8px')};
+    right: 0;
+    margin: ${(props) => (props.direction === 'column' ? '0 auto' : 'auto 0')};
+  }
 `;
