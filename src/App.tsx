@@ -32,7 +32,7 @@ function App() {
             fontWeight={700}
             fontSize='2rem'
             color='#00dc64'
-            fontFamily='Nanum Gothic'
+            fontFamily='Single Day'
           >
             팔만코딩경 리포트
           </Typography>
@@ -171,7 +171,15 @@ function App() {
       }
       footerBox={
         <ContentBox>
-          <Typography display='inline' align='center' fontWeight={700} fontSize='0.8rem' color='#7b7b7b' fontFamily='Nanum Gothic'>
+          <Typography
+            display='inline'
+            align='center'
+            fontWeight={700}
+            fontSize='0.8rem'
+            color='#7b7b7b'
+            fontFamily='Nanum Gothic'
+            padding='40px 0'
+          >
             @2022 팔만코딩경
           </Typography>
         </ContentBox>
@@ -264,7 +272,7 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
   justify-content: center;
   align-items: center;
   width: 375px;
-  height: 30vh;
+  height: 400px;
   margin: auto;
 
   color: ${(props) => props.fg ?? 'black'};
@@ -273,8 +281,9 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
     position: absolute;
     width: 100%;
     content: '';
-    height: 30vh;
-    background: ${(props) => props.bg ?? 'white'};
+    height: 400px;
+    background: url('https://ssl.pstatic.net/static/m/comic/im/bg_pc.png') no-repeat top, linear-gradient(0deg, #170a62, #000) no-repeat top;
+    background-size: 1280px 490px, 100% 100%;
   }
 
   & > * {
