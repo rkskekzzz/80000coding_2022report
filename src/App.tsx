@@ -56,12 +56,12 @@ function App() {
                   에 주로 만났어요
                 </Typography>
               </Section>
-              <Section title='매주 팔만코딩경을 방문한 유저수는?' subtitle='2022 팔만코딩경 리포트'>
-                <CountUpWidget from={1000} to={2358}></CountUpWidget>
+              <Section title='올해 팔만코딩경을 방문한 유저수는?' subtitle='2022 팔만코딩경 리포트'>
+                <CountUpWidget from={65000} to={70000}></CountUpWidget>
                 <Typography display='inline' align='center' fontWeight={700} fontSize='1.1rem'>
-                  올해 총{' '}
+                  매주
                   <Typography display='inline' color='#00dc64' fontWeight={800} fontSize='1.1rem' fontFamily='Nanum Gothic'>
-                    70,000
+                    2,358
                   </Typography>
                   명의 개발자가 방문했어요
                 </Typography>
