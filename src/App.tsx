@@ -5,6 +5,7 @@ import { Weekday, Tags } from './data';
 import { Themes } from './theme/theme';
 import styled from '@emotion/styled';
 import { Analytics } from '@vercel/analytics/react';
+import PostHrefWidget from './components/widget/PostHrefWidget';
 
 function App() {
   return (
@@ -172,7 +173,58 @@ function App() {
           </ContentBox>
         }
         footerBox={
-          <ContentBox>
+          <FooterBox>
+            <Typography display='inline' color='#00dc64' fontWeight={800} fontSize='1.5rem' fontFamily='Nanum Gothic'>
+              팔만코딩경
+            </Typography>
+            <Typography
+              display='inline'
+              align='center'
+              fontWeight={700}
+              fontSize='1.5rem'
+              color='#fdfdfd'
+              fontFamily='Nanum Gothic'
+              margin='0 0 20px 0'
+            >
+              추천 게시글 보러가기
+            </Typography>
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/865f4b2a-5198-49e8-a173-0f893a4fed45'
+              icon='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567062204/noticon/ttan57gjenhvcrfq10yo.png'
+              text='깃허브 프로필 꾸미기'
+              contributor='suhshin'
+            />
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/6172b586-8056-4cb1-8c4f-2179009aef3f'
+              icon='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/325/ewe_1f411.png'
+              text='Makefile, make 기초'
+              contributor='jmaing'
+            />
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/4a76a7bd-a828-49cb-b290-a0a196eb4591'
+              icon='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/325/ninja_1f977.png'
+              text='닌자코드'
+              contributor='sangtale'
+            />
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/50a53b79-eb40-4a31-be99-9cbcca93a4da'
+              icon='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/325/new-moon_1f311.png'
+              text='42 과제 정리용 노션 탬플릿'
+              contributor='jijeong'
+            />
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/2287b35b-a164-4ade-8d80-15559f00fbe8'
+              icon='https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/320/apple/325/memo_1f4dd.png'
+              text='man'
+              contributor='minjungk'
+            />
+            <PostHrefWidget
+              url='https://80000coding.oopy.io/d5d36b7d-b605-4d1f-b2d9-ad0ddd8f1ff9'
+              icon='https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1629987802/noticon/qxvhd6gnagplyp6crw33.png'
+              text='VSCode 파일 확장자로 정렬하기
+'
+              contributor='dha'
+            />
             <Typography
               display='inline'
               align='center'
@@ -184,7 +236,7 @@ function App() {
             >
               @2022 팔만코딩경
             </Typography>
-          </ContentBox>
+          </FooterBox>
         }
       />
       <Analytics />
@@ -235,6 +287,20 @@ const ContentBox = ({ themes, children }: ContentBoxProps) => {
   );
 };
 
+interface FooterBoxProps {
+  themes?: Themes;
+  children?: React.ReactNode;
+}
+
+const FooterBox = ({ themes, children }: FooterBoxProps) => {
+  const theme = useTheme();
+  return (
+    <FooterContainer bg={theme.titleBox[themes ?? 'default'].bg} fg={theme.titleBox[themes ?? 'default'].fg}>
+      {children}
+    </FooterContainer>
+  );
+};
+
 interface BoxProps {
   theme?: Themes;
   titleBox: React.ReactNode;
@@ -276,8 +342,8 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
   justify-content: center;
   align-items: center;
   width: 375px;
-  height: 400px;
   margin: auto;
+  margin-top: 50px;
 
   color: ${(props) => props.fg ?? 'black'};
 
@@ -285,7 +351,7 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
     position: absolute;
     width: 100%;
     content: '';
-    height: 400px;
+    height: 100%;
     background: url('https://ssl.pstatic.net/static/m/comic/im/bg_pc.png') no-repeat top, linear-gradient(0deg, #170a62, #000) no-repeat top;
     background-size: 1280px 490px, 100% 100%;
   }
@@ -297,5 +363,32 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
     background: linear-gradient(to right, #00dc64, #52cce3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+`;
+const FooterContainer = styled.div<{ bg?: string; fg?: string }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 375px;
+  height: auto;
+  margin: auto;
+  margin-top: 50px;
+  padding-top: 50px;
+
+  color: ${(props) => props.fg ?? 'black'};
+
+  &&::before {
+    position: absolute;
+    width: 100%;
+    content: '';
+    height: 740px;
+    bottom: 0;
+    background: #000143;
+    background-size: 1280px 490px, 100% 100%;
+  }
+
+  & > * {
+    z-index: 100;
   }
 `;
