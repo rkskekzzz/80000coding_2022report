@@ -15,4 +15,5 @@
 
 .slick-dots button::before {
   color: white !important;
+  font-size: 13px;
 }
