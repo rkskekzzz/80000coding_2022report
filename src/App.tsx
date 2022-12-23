@@ -351,7 +351,7 @@ const TitleContainer = styled.div<{ bg?: string; fg?: string }>`
     position: absolute;
     width: 100%;
     content: '';
-    height: 100%;
+    height: 400px;
     background: url('https://ssl.pstatic.net/static/m/comic/im/bg_pc.png') no-repeat top, linear-gradient(0deg, #170a62, #000) no-repeat top;
     background-size: 1280px 490px, 100% 100%;
   }
