@@ -68,10 +68,10 @@ function App() {
                 </Typography>
               </Section>
               <Section title='올해 가장 많이 사용된 태그는?' subtitle='2023 팔만코딩경 리포트'>
-                <BarGraphWidget items={Tags} direction='left-to-right' maxBarHeight={90} sort='desc' selectedKey='C' />
+                <BarGraphWidget items={Tags} direction='left-to-right' maxBarHeight={65} sort='desc' selectedKey='C' />
                 <Typography display='inline' align='center' fontWeight={700} fontSize='1.1rem'>
                   <Typography display='inline' color='#00dc64' fontWeight={800} fontSize='1.1rem' fontFamily='Nanum Gothic'>
-                    86
+                    74
                   </Typography>
                   개의 게시글에서 사용되었어요
                 </Typography>

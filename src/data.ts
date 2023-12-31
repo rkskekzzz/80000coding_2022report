@@ -10,11 +10,25 @@ export const Weekday = [
 ];
 
 export const Tags = [
-  { key: '42seoul', value: 27 },
-  { key: '개발지식', value: 28 },
-  { key: 'Algorithm', value: 31 },
-  { key: 'Javascript', value: 38 },
-  { key: '42cursus', value: 39 },
-  { key: 'C++', value: 52 },
-  { key: 'C', value: 86 },
+  { key: 'Java', value: 21 },
+  { key: '자료구조', value: 24 },
+  { key: 'Algorithm', value: 23 },
+  { key: '개발환경', value: 22 },
+  { key: '42cursus', value: 26 },
+  { key: 'CS', value: 40 },
+  { key: 'C', value: 64 },
 ];
+
+// C: 74
+// CS (Computer Science): 40
+// 운영체제: 27
+// 42cursus: 26
+// 자료구조: 24
+// 알고리즘: 23
+// 개발환경: 22
+// Java: 21
+// Spring: 20
+// Git: 19
+// Swift: 19
+// Javascript: 17
+// AWS: 16
